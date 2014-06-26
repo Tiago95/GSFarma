@@ -49,7 +49,7 @@ public class ContatoRN {
 		try{
 			
 			EmailUtil emailUtil = new EmailUtil();
-			emailUtil.enviarEmail(null, "contato@gsfarma.com.br", contato.getTitulo(), "Esse contato foi feito por: " + contato.getNome() + "\n" + "Email: " + contato.getEmail() + "\n" + "Telefone: " + contato.getTelefone() + "\n\n" + contato.getMensagem());
+			emailUtil.enviarEmail(null, "tiagoguimaraes@localhost", contato.getTitulo(), "Esse contato foi feito por: " + contato.getNome() + "\n" + "Email: " + contato.getEmail() + "\n" + "Telefone: " + contato.getTelefone() + "\n\n" + contato.getMensagem());
 			
 		}catch (UtilException e){
 			
