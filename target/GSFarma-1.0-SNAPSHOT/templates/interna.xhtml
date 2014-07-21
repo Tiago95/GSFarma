@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+	
+<h:head>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,300italic' rel='stylesheet' type='text/css' />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="../resources/less/animate.less-master/animate.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../resources/js/woothemes-FlexSlider-06b12f8/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../resources/js/prettyPhoto_3.1.5/prettyPhoto.css" type="text/css" media="screen" />
+<link href="../resources/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../resources/fonts/font-awesome/css/font-awesome.min.css" media="screen" />
+<script type="text/javascript" src="js/modernizr.custom.48287.js"></script>
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../resources/apple-touch-icon-114x114-precomposed.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../resources/apple-touch-icon-72x72-precomposed.png" />
+<link rel="apple-touch-icon-precomposed" href="../resources/apple-touch-icon-57x57-precomposed.png" />
+<link rel="shortcut icon" href="../resources/favicon.png" />
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+
+<body>
+<header>
+<img src="../resources/images/carrinho.jpg" style="margin-left: 80%; margin-bottom: 100px:"/>
+          <h:outputText id="carrinho" value="Você tem 1 produtos no carrinho" style="color:blue; margin-left: 70%; " />
+     <div class="container">
+          <div class="navbar">
+               <div class="navbar-inner" width="300px"> <a class="brand" href="index.html"> <img src="../resources/images/restart_logo.png" style="width:300px; height:100px"/> </a> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="nb_left pull-left"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></span> <span class="nb_right pull-right">menu</span> </a>
+                    <div class="nav-collapse collapse">
+                         <ul class="nav pull-right">
+                              <li class="active"><a href="index.html">Home</a></li>
+                              <li><a href="about_us.html">Quem Somos</a></li>
+                              <li><a href="services.html">Serviços</a></li>
+                              <li><a href="portfolio.html">Portifólio</a></li>
+                              <li><a href="portfolio.html">Faça seu Pedido</a></li>
+                              <li><a href="blog.html">Prati-Donaduzzi</a></li>
+                              <li><a href="contact.html">Contato</a></li>                          
+                         </ul>
+                    </div>
+               </div>               
+                             
+          </div>
+           
+       <!--    <div id="social_media_wrapper"> <a href="https://www.facebook.com/pratidonaduzzi" target="_blank"><i class="icon icon-facebook"></i></a> <a href="https://twitter.com/pratidonaduzzi" target="_blank"><i class="icon icon-twitter"></i></a> <a href="https://plus.google.com/" target="_blank"><i class="icon icon-google-plus"></i></a> </div>          
+          <div id="sign"><h:outputText id="nome_usuario" value="Seja Bem Vindo, #{usuarioBean.nomeUsuario}" style="color:blue"/></div> -->          
+     </div>   
+</header>
+
+
+
+<div id="corpo">
+<ui:insert name="corpo" />
+</div>
+
+     <footer>          
+          <section id="footer_teasers_wrapper">
+               <div class="container">
+                    <div class="row">
+                         <div class="span4 footer_teaser">
+                              <h3>Quem Somos</h3>
+                              <p>A GSFarma é uma empresa de representação farmacêutica atuante no estado de Minas Gerais.</p>
+                              <p><i class="icon-map-marker"></i>Belo Horizonte</p>
+                              <p><i class="icon-phone"></i> +55 (31) 8706-0678</p>
+                              <p><i class="icon-phone"></i> +55 (31) 9381-4444</p>
+                              <p><i class="icon-envelope"></i> guimaraesilva@gmail.com</p>
+                              <p><i class="icon-envelope"></i> contato@gsfarma.com.br</p>
+                         </div>
+                         <div class="span4 footer_teaser">
+                              <h3>Ultimas Noticias</h3>
+                              <ul class="media-list">
+                                   <li class="media"> <a href="#" class="media-photo" style="background-image:url(images/portfolio/t5.jpg)"></a> <a href="#" class="media-date">09<span>JAN</span></a>
+                                        <h5 class="media-heading"><a href="#">População procura mais pela Farmácia Popular</a></h5>
+                                        <p>A procura por remédios nas farmácias conveniadas ao Programa Farmácia Popular do Brasil aumentou em ...</p>
+                                   </li>                                   
+                              </ul>
+                         </div>
+                         <div class="span4 footer_teaser" id="latest-flickr-images">
+                              <h3>Nossos Parceiros</h3>                            
+                         </div>
+                    </div>
+               </div>
+          </section>
+          <section id="copyright">
+               <div class="container">
+                    <div class="row">
+                         <div class="span6"> Todos os direitos reservados a TGX Soluções web </div>                         
+                    </div>
+               </div>
+          </section>
+     </footer>
+
+</body>
+</html>

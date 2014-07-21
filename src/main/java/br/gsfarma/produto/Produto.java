@@ -1,15 +1,22 @@
 package br.gsfarma.produto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.gsfarma.categoria.Categoria;
+import br.gsfarma.classificacao.Classificacao;
+import br.gsfarma.faixa.etaria.FaixaEtaria;
+
 @Entity
-@Table(name="produto")
+@Table(name="Produto")
 public class Produto implements Serializable {
 
 	/**
@@ -19,99 +26,165 @@ public class Produto implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="cod_produto")
-	private Integer codigo;
+	@Column(name="Cod_Produto")
+	private Integer codProduto;
 	
-	private String descricao;
-	private String categoria;
-	private String referencia;
-	private Integer cx_embalagem;
-	private Float preco_fabrica;
-	private Float preco_consumidor;
-	private Float preco_venda;
-	private Integer quantidade;
+	@ManyToOne
+	@JoinColumn(name="codCategoria")
+	private Categoria categoria;
 	
-	public Integer getCodigo() {
-		return codigo;
+    @ManyToOne
+    @JoinColumn(name="codFaixaEtaria")
+    private FaixaEtaria faixaEtaria;
+    
+    @ManyToOne
+    @JoinColumn(name="codClassificacao")
+    private Classificacao classificacao;
+    
+    @Column(name="Apresentacao")
+    private String apresentacao;
+    
+    @Column(name="Referencia")
+    private String referencia;
+    
+    @Column(name="Classe_Terapeutica")
+    private String classeTerapeutica;
+    
+    @Column(name="Indicacoes")
+    private String indicacoes;
+    
+    @Column(name="Preco_Fabrica")
+    private BigDecimal precoFabrica;
+    
+    @Column(name="Preco_Consumidor")
+    private BigDecimal precoConsumidor;
+    
+    @Column(name="Preco_Venda")
+    private BigDecimal precoVenda;
+
+	public Integer getCodProduto() {
+		return codProduto;
 	}
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+
+	public void setCodProduto(Integer codProduto) {
+		this.codProduto = codProduto;
 	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public String getCategoria() {
+
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	public FaixaEtaria getFaixaEtaria() {
+		return faixaEtaria;
+	}
+
+	public void setFaixaEtaria(FaixaEtaria faixaEtaria) {
+		this.faixaEtaria = faixaEtaria;
+	}
+
+	public Classificacao getClassificacao() {
+		return classificacao;
+	}
+
+	public void setClassificacao(Classificacao classificacao) {
+		this.classificacao = classificacao;
+	}
+
+	public String getApresentacao() {
+		return apresentacao;
+	}
+
+	public void setApresentacao(String apresentacao) {
+		this.apresentacao = apresentacao;
+	}
+
 	public String getReferencia() {
 		return referencia;
 	}
+
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
-	public Integer getCx_embalagem() {
-		return cx_embalagem;
+
+	public String getClasseTerapeutica() {
+		return classeTerapeutica;
 	}
-	public void setCx_embalagem(Integer cx_embalagem) {
-		this.cx_embalagem = cx_embalagem;
+
+	public void setClasseTerapeutica(String classeTerapeutica) {
+		this.classeTerapeutica = classeTerapeutica;
 	}
-	public Float getPreco_fabrica() {
-		return preco_fabrica;
+
+	public String getIndicacoes() {
+		return indicacoes;
 	}
-	public void setPreco_fabrica(Float preco_fabrica) {
-		this.preco_fabrica = preco_fabrica;
+
+	public void setIndicacoes(String indicacoes) {
+		this.indicacoes = indicacoes;
 	}
-	public Float getPreco_consumidor() {
-		return preco_consumidor;
+
+	public BigDecimal getPrecoFabrica() {
+		return precoFabrica;
 	}
-	public void setPreco_consumidor(Float preco_consumidor) {
-		this.preco_consumidor = preco_consumidor;
+
+	public void setPrecoFabrica(BigDecimal precoFabrica) {
+		this.precoFabrica = precoFabrica;
 	}
-	public Float getPreco_venda() {
-		return preco_venda;
+
+	public BigDecimal getPrecoConsumidor() {
+		return precoConsumidor;
 	}
-	public void setPreco_venda(Float preco_venda) {
-		this.preco_venda = preco_venda;
+
+	public void setPrecoConsumidor(BigDecimal precoConsumidor) {
+		this.precoConsumidor = precoConsumidor;
 	}
-	public Integer getQuantidade() {
-		return quantidade;
+
+	public BigDecimal getPrecoVenda() {
+		return precoVenda;
 	}
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+
+	public void setPrecoVenda(BigDecimal precoVenda) {
+		this.precoVenda = precoVenda;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+				+ ((apresentacao == null) ? 0 : apresentacao.hashCode());
+		result = prime * result
 				+ ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result
-				+ ((cx_embalagem == null) ? 0 : cx_embalagem.hashCode());
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime
 				* result
-				+ ((preco_consumidor == null) ? 0 : preco_consumidor.hashCode());
+				+ ((classeTerapeutica == null) ? 0 : classeTerapeutica
+						.hashCode());
 		result = prime * result
-				+ ((preco_fabrica == null) ? 0 : preco_fabrica.hashCode());
+				+ ((classificacao == null) ? 0 : classificacao.hashCode());
 		result = prime * result
-				+ ((preco_venda == null) ? 0 : preco_venda.hashCode());
+				+ ((codProduto == null) ? 0 : codProduto.hashCode());
 		result = prime * result
-				+ ((quantidade == null) ? 0 : quantidade.hashCode());
+				+ ((faixaEtaria == null) ? 0 : faixaEtaria.hashCode());
+		result = prime * result
+				+ ((indicacoes == null) ? 0 : indicacoes.hashCode());
+		result = prime * result
+				+ ((precoConsumidor == null) ? 0 : precoConsumidor.hashCode());
+		result = prime * result
+				+ ((precoFabrica == null) ? 0 : precoFabrica.hashCode());
+		result = prime * result
+				+ ((precoVenda == null) ? 0 : precoVenda.hashCode());
 		result = prime * result
 				+ ((referencia == null) ? 0 : referencia.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -121,45 +194,55 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
+		if (apresentacao == null) {
+			if (other.apresentacao != null)
+				return false;
+		} else if (!apresentacao.equals(other.apresentacao))
+			return false;
 		if (categoria == null) {
 			if (other.categoria != null)
 				return false;
 		} else if (!categoria.equals(other.categoria))
 			return false;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (classeTerapeutica == null) {
+			if (other.classeTerapeutica != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!classeTerapeutica.equals(other.classeTerapeutica))
 			return false;
-		if (cx_embalagem == null) {
-			if (other.cx_embalagem != null)
+		if (classificacao == null) {
+			if (other.classificacao != null)
 				return false;
-		} else if (!cx_embalagem.equals(other.cx_embalagem))
+		} else if (!classificacao.equals(other.classificacao))
 			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
+		if (codProduto == null) {
+			if (other.codProduto != null)
 				return false;
-		} else if (!descricao.equals(other.descricao))
+		} else if (!codProduto.equals(other.codProduto))
 			return false;
-		if (preco_consumidor == null) {
-			if (other.preco_consumidor != null)
+		if (faixaEtaria == null) {
+			if (other.faixaEtaria != null)
 				return false;
-		} else if (!preco_consumidor.equals(other.preco_consumidor))
+		} else if (!faixaEtaria.equals(other.faixaEtaria))
 			return false;
-		if (preco_fabrica == null) {
-			if (other.preco_fabrica != null)
+		if (indicacoes == null) {
+			if (other.indicacoes != null)
 				return false;
-		} else if (!preco_fabrica.equals(other.preco_fabrica))
+		} else if (!indicacoes.equals(other.indicacoes))
 			return false;
-		if (preco_venda == null) {
-			if (other.preco_venda != null)
+		if (precoConsumidor == null) {
+			if (other.precoConsumidor != null)
 				return false;
-		} else if (!preco_venda.equals(other.preco_venda))
+		} else if (!precoConsumidor.equals(other.precoConsumidor))
 			return false;
-		if (quantidade == null) {
-			if (other.quantidade != null)
+		if (precoFabrica == null) {
+			if (other.precoFabrica != null)
 				return false;
-		} else if (!quantidade.equals(other.quantidade))
+		} else if (!precoFabrica.equals(other.precoFabrica))
+			return false;
+		if (precoVenda == null) {
+			if (other.precoVenda != null)
+				return false;
+		} else if (!precoVenda.equals(other.precoVenda))
 			return false;
 		if (referencia == null) {
 			if (other.referencia != null)
@@ -168,5 +251,4 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
 }

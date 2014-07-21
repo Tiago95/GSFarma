@@ -8,26 +8,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 <head>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,300italic' rel='stylesheet' type='text/css' />
-<title>GSFarma Representações - Contato</title>
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="../resources/less/animate.less-master/animate.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="../resources/js/woothemes-FlexSlider-06b12f8/flexslider.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../resources/js/prettyPhoto_3.1.5/prettyPhoto.css" type="text/css" media="screen" />
-<link href="../resources/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="../resources/fonts/font-awesome/css/font-awesome.min.css" media="screen" />
-<!--[if IE 7]>
-    <link rel="stylesheet" href="fonts/font-awsome/css/font-awesome-ie7.min.css">
-    <![endif]-->
-<script type="text/javascript" src="js/modernizr.custom.48287.js"></script>
-<!-- Fav and touch icons -->
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../resources/apple-touch-icon-114x114-precomposed.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../resources/apple-touch-icon-72x72-precomposed.png" />
-<link rel="apple-touch-icon-precomposed" href="../resources/apple-touch-icon-57x57-precomposed.png" />
-<link rel="shortcut icon" href="../resources/favicon.png" />
-<meta charset="iso-8859-1" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /></head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
 
 <ui:composition template="/templates/externa.xhtml">
 
@@ -48,7 +30,8 @@
                     
                     <div class="span8 contact_form">
                          <h:form>
-                         <h:messages style="color:red;"/>
+                         <!-- <h:messages style="color:red;"/> -->
+                         <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                               <div class="row">
                                    <div class="span4">
                                         <label>Nome</label>
@@ -68,7 +51,7 @@
                                    </div>
                                    <div class="span8">
                                         <label>Mensagem</label>
-                                        <h:inputTextarea id="mensagem" value="#{contatoBean.contato.mensagem}" required="true" styleClass="span8" requiredMessage="A mensagem é obrigatória" />
+                                        <h:inputTextarea rows="5" id="mensagem" value="#{contatoBean.contato.mensagem}" required="true" styleClass="span8" requiredMessage="A mensagem é obrigatória" />
                                    </div>
                                    <div class="span8"> <h:commandButton value="Enviar Mensagem" action="#{contatoBean.salvar}" styleClass="btn btn-large btn-success" /></div>
                               </div>

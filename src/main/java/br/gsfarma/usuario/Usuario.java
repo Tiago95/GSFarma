@@ -1,21 +1,19 @@
 package br.gsfarma.usuario;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
+import br.gsfarma.endereco.Endereco;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "Usuario")
 public class Usuario implements Serializable {
 
 	
@@ -26,101 +24,88 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name  = "codigo")
-	private Integer codigo;
+	@Column(name="Cod_Usuario")
+	private Integer codUsuario;
 	
-	private String cnpj;
-	private String razao_social;
-	private String nome_contato;
-	private String tel_principal;
-	private String tel_celular;
-	private String tel_comercial;
-	private String cep;
-	private String endereco;
-	private String email;
-	private String senha;	
-	private boolean ativo;
-	
-	@ElementCollection(targetClass = String.class)
-	@JoinTable(
-			
-	  name="usuario_permissao",
-	  uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario","permissao"})},
-	  joinColumns = @JoinColumn(name="usuario"))
-	
-	@Column(name="permissao", length=50)
-	private Set<String> permissao = new HashSet<String>();
+    @OneToOne
+    @PrimaryKeyJoinColumn(name="Cod_Usuario")
+    private Endereco endereco;
+    
+    @Column(name="Razao_Social")
+    private String razaoSocial;
+    
+    @Column(name="Nome_Comprador")
+    private String nomeComprador;
+    
+    @Column(name="Telefone_Principal")
+    private String telefonePrincipal;
+    
+    @Column(name="TelefoneCelular")
+    private String telefoneCelular;
+    
+    @Column(name="Telefone_Comercial")
+    private String telefoneComercial;
+    
+    @Column(name="Email")
+    private String email;
+    
+    @Column(name="Senha")
+    private String senha;
 
-	public Integer getCodigo() {
-		return codigo;
+	public Integer getCodUsuario() {
+		return codUsuario;
 	}
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCodUsuario(Integer codUsuario) {
+		this.codUsuario = codUsuario;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getRazao_social() {
-		return razao_social;
-	}
-
-	public void setRazao_social(String razao_social) {
-		this.razao_social = razao_social;
-	}
-
-	public String getNome_contato() {
-		return nome_contato;
-	}
-
-	public void setNome_contato(String nome_contato) {
-		this.nome_contato = nome_contato;
-	}
-
-	public String getTel_principal() {
-		return tel_principal;
-	}
-
-	public void setTel_principal(String tel_principal) {
-		this.tel_principal = tel_principal;
-	}
-
-	public String getTel_celular() {
-		return tel_celular;
-	}
-
-	public void setTel_celular(String tel_celular) {
-		this.tel_celular = tel_celular;
-	}
-
-	public String getTel_comercial() {
-		return tel_comercial;
-	}
-
-	public void setTel_comercial(String tel_comercial) {
-		this.tel_comercial = tel_comercial;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public String getNomeComprador() {
+		return nomeComprador;
+	}
+
+	public void setNomeComprador(String nomeComprador) {
+		this.nomeComprador = nomeComprador;
+	}
+
+	public String getTelefonePrincipal() {
+		return telefonePrincipal;
+	}
+
+	public void setTelefonePrincipal(String telefonePrincipal) {
+		this.telefonePrincipal = telefonePrincipal;
+	}
+
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
+	}
+
+	public String getTelefoneComercial() {
+		return telefoneComercial;
+	}
+
+	public void setTelefoneComercial(String telefoneComercial) {
+		this.telefoneComercial = telefoneComercial;
 	}
 
 	public String getEmail() {
@@ -139,22 +124,6 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	public Set<String> getPermissao() {
-		return permissao;
-	}
-
-	public void setPermissao(Set<String> permissao) {
-		this.permissao = permissao;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -163,26 +132,26 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (ativo ? 1231 : 1237);
-		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result
+				+ ((codUsuario == null) ? 0 : codUsuario.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result
-				+ ((nome_contato == null) ? 0 : nome_contato.hashCode());
+				+ ((nomeComprador == null) ? 0 : nomeComprador.hashCode());
 		result = prime * result
-				+ ((permissao == null) ? 0 : permissao.hashCode());
-		result = prime * result
-				+ ((razao_social == null) ? 0 : razao_social.hashCode());
+				+ ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		result = prime * result
-				+ ((tel_celular == null) ? 0 : tel_celular.hashCode());
-		result = prime * result
-				+ ((tel_comercial == null) ? 0 : tel_comercial.hashCode());
-		result = prime * result
-				+ ((tel_principal == null) ? 0 : tel_principal.hashCode());
+				+ ((telefoneCelular == null) ? 0 : telefoneCelular.hashCode());
+		result = prime
+				* result
+				+ ((telefoneComercial == null) ? 0 : telefoneComercial
+						.hashCode());
+		result = prime
+				* result
+				+ ((telefonePrincipal == null) ? 0 : telefonePrincipal
+						.hashCode());
 		return result;
 	}
 
@@ -195,22 +164,10 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (ativo != other.ativo)
-			return false;
-		if (cep == null) {
-			if (other.cep != null)
+		if (codUsuario == null) {
+			if (other.codUsuario != null)
 				return false;
-		} else if (!cep.equals(other.cep))
-			return false;
-		if (cnpj == null) {
-			if (other.cnpj != null)
-				return false;
-		} else if (!cnpj.equals(other.cnpj))
-			return false;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!codUsuario.equals(other.codUsuario))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -222,42 +179,36 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!endereco.equals(other.endereco))
 			return false;
-		if (nome_contato == null) {
-			if (other.nome_contato != null)
+		if (nomeComprador == null) {
+			if (other.nomeComprador != null)
 				return false;
-		} else if (!nome_contato.equals(other.nome_contato))
+		} else if (!nomeComprador.equals(other.nomeComprador))
 			return false;
-		if (permissao == null) {
-			if (other.permissao != null)
+		if (razaoSocial == null) {
+			if (other.razaoSocial != null)
 				return false;
-		} else if (!permissao.equals(other.permissao))
-			return false;
-		if (razao_social == null) {
-			if (other.razao_social != null)
-				return false;
-		} else if (!razao_social.equals(other.razao_social))
+		} else if (!razaoSocial.equals(other.razaoSocial))
 			return false;
 		if (senha == null) {
 			if (other.senha != null)
 				return false;
 		} else if (!senha.equals(other.senha))
 			return false;
-		if (tel_celular == null) {
-			if (other.tel_celular != null)
+		if (telefoneCelular == null) {
+			if (other.telefoneCelular != null)
 				return false;
-		} else if (!tel_celular.equals(other.tel_celular))
+		} else if (!telefoneCelular.equals(other.telefoneCelular))
 			return false;
-		if (tel_comercial == null) {
-			if (other.tel_comercial != null)
+		if (telefoneComercial == null) {
+			if (other.telefoneComercial != null)
 				return false;
-		} else if (!tel_comercial.equals(other.tel_comercial))
+		} else if (!telefoneComercial.equals(other.telefoneComercial))
 			return false;
-		if (tel_principal == null) {
-			if (other.tel_principal != null)
+		if (telefonePrincipal == null) {
+			if (other.telefonePrincipal != null)
 				return false;
-		} else if (!tel_principal.equals(other.tel_principal))
+		} else if (!telefonePrincipal.equals(other.telefonePrincipal))
 			return false;
 		return true;
-	}	
-
+	}
 }
