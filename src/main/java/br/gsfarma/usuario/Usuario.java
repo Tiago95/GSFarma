@@ -42,6 +42,9 @@ public class Usuario implements Serializable {
     inverseJoinColumns={@JoinColumn(name="Cod_Permissao")})
     private Set<Permissao> permissoes = new HashSet<Permissao>();
     
+    @Column(name="CNPJ")
+    private String cnpj;
+    
     @Column(name="Razao_Social")
     private String razaoSocial;
     
@@ -62,6 +65,9 @@ public class Usuario implements Serializable {
     
     @Column(name="Senha")
     private String senha;
+    
+    @Column(name="Ativo")
+    private boolean ativo;
 
 	public Integer getCodUsuario() {
 		return codUsuario;
@@ -147,10 +153,28 @@ public class Usuario implements Serializable {
 		this.permissoes = permissoes;
 	}
 
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
+		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
 		result = prime * result
 				+ ((codUsuario == null) ? 0 : codUsuario.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -185,6 +209,13 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (ativo != other.ativo)
+			return false;
+		if (cnpj == null) {
+			if (other.cnpj != null)
+				return false;
+		} else if (!cnpj.equals(other.cnpj))
+			return false;
 		if (codUsuario == null) {
 			if (other.codUsuario != null)
 				return false;

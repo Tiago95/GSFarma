@@ -2,6 +2,8 @@ package br.gsfarma.util;
 
 import br.gsfarma.contato.ContatoDAO;
 import br.gsfarma.contato.ContatoDAOHibernate;
+import br.gsfarma.endereco.EnderecoDAO;
+import br.gsfarma.endereco.EnderecoDAOHibernate;
 import br.gsfarma.produto.ProdutoDAO;
 import br.gsfarma.produto.ProdutoDAOHibernate;
 import br.gsfarma.usuario.UsuarioDAO;
@@ -30,6 +32,14 @@ public class DAOFactory {
 		ProdutoDAOHibernate produtoDAO = new ProdutoDAOHibernate();
 		produtoDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
 		return produtoDAO;
+		
+	}
+	
+	public static EnderecoDAO criarEnderecoDAO(){
+		
+		EnderecoDAOHibernate enderecoDAO = new EnderecoDAOHibernate();
+		enderecoDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return enderecoDAO;
 		
 	}
 	

@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC 
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        
 <hibernate-configuration>
 	<session-factory>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
@@ -13,10 +14,17 @@
 		<property name="format_sql">true</property>
 
 		<mapping class="br.gsfarma.usuario.Usuario" />
+		<mapping class="br.gsfarma.permissao.Permissao" />
+		<mapping class="br.gsfarma.endereco.Endereco" />
+		<mapping class="br.gsfarma.bairro.Bairro" />
+		<mapping class="br.gsfarma.cidade.Cidade" />
+		<mapping class="br.gsfarma.estado.Estado" />
+		<mapping class="br.gsfarma.pais.Pais" />
 		<mapping class="br.gsfarma.contato.Contato" />
-		<mapping class="br.gsfarma.produto.Produto" />
+		<mapping class="br.gsfarma.status.mensagem.StatusMensagem" />
+		<!-- <mapping class="br.gsfarma.produto.Produto" />
 		<mapping class="br.gsfarma.pedido.Pedido" />
-		<mapping class="br.gsfarma.itens.ItensPedido" />
+		<mapping class="br.gsfarma.itens.ItensPedido" />  -->
 
 		
 	</session-factory>

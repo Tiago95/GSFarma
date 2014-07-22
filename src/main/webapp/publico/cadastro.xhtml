@@ -50,58 +50,58 @@
     <h:message for="cnpj" style="color: red;  font-weight: bold;"/>
     </div>
     
-     <p:inputText id="razao" value="#{usuarioBean.usuario.razao_social}" placeholder="Razão Social" styleClass="input-xlarge" required="true" requiredMessage="A Razão Social é Obrigatória" />    
+     <p:inputText id="razao" value="#{usuarioBean.usuario.razaoSocial}" placeholder="Razão Social" styleClass="input-xlarge" required="true" requiredMessage="A Razão Social é Obrigatória" />    
     <div>
     <h:message for="razao" style="color: red;  font-weight: bold;"/>
     </div>
     
-     <p:inputText id="comprador" value="#{usuarioBean.usuario.nome_contato}" placeholder="Nome do Comprador" styleClass="input-xlarge" required="true" requiredMessage="O nome do Comprador é obrigatório" />    
+     <p:inputText id="comprador" value="#{usuarioBean.usuario.nomeComprador}" placeholder="Nome do Comprador" styleClass="input-xlarge" required="true" requiredMessage="O nome do Comprador é obrigatório" />    
     <div>
     <h:message for="comprador" style="color: red;  font-weight: bold;"/>
     </div>
     
-     <p:inputMask id="principal" value="#{usuarioBean.usuario.tel_principal}" placeholder="Telefone Principal" styleClass="input-xlarge" required="true" mask="(99) 9999-9999" requiredMessage="O Telefone Principal é obrigatório" />    
+     <p:inputMask id="principal" value="#{usuarioBean.usuario.telefonePrincipal}" placeholder="Telefone Principal" styleClass="input-xlarge" required="true" mask="(99) 9999-9999" requiredMessage="O Telefone Principal é obrigatório" />    
     <div>
     <h:message for="principal" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputMask id="celular" value="#{usuarioBean.usuario.tel_celular}" placeholder="Telefone Celular" styleClass="input-xlarge" mask="(99) 9999-9999" />
+    <p:inputMask id="celular" value="#{usuarioBean.usuario.telefoneCelular}" placeholder="Telefone Celular" styleClass="input-xlarge" mask="(99) 9999-9999" />
     
-    <p:inputMask id="comercial" value="#{usuarioBean.usuario.tel_comercial}" placeholder="Telefone Comercial" styleClass="input-xlarge" mask="(99) 9999-9999" />
+    <p:inputMask id="comercial" value="#{usuarioBean.usuario.telefoneComercial}" placeholder="Telefone Comercial" styleClass="input-xlarge" mask="(99) 9999-9999" />
     
-    <p:inputMask id="cep" value="#{usuarioBean.usuario.cep}" placeholder="CEP" styleClass="input-xlarge" required="true" mask="99999-999" requiredMessage="O Cep é obrigatório" onblur="consultacep(this.value)"/>
+    <p:inputMask id="cep" value="#{usuarioBean.endereco.cep}" placeholder="CEP" styleClass="input-xlarge" required="true" mask="99999-999" requiredMessage="O Cep é obrigatório" onblur="consultacep(this.value)"/>
     <div>
     <h:message for="cep" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="endereco" value="#{usuarioBean.usuario.endereco}" placeholder="Endereço" styleClass="input-xlarge" required="true" requiredMessage="O endereço é obrigatório" />    
+    <p:inputText id="endereco" value="#{usuarioBean.endereco.logradouro}" placeholder="Endereço" styleClass="input-xlarge" required="true" requiredMessage="O endereço é obrigatório" />    
     <div>
     <h:message for="endereco" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="numero" value="#{usuarioBean.numero}" placeholder="Numero" styleClass="input-xlarge" required="true" requiredMessage="O número do endereço é obrigatório" />    
+    <p:inputText id="numero" value="#{usuarioBean.endereco.numero}" placeholder="Numero" styleClass="input-xlarge" required="true" requiredMessage="O número do endereço é obrigatório" />    
     <div>
     <h:message for="numero" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="complemento" value="#{usuarioBean.complemento}" placeholder="Complemento. Ex: Loja 2" styleClass="input-xlarge" />
+    <p:inputText id="complemento" value="#{usuarioBean.endereco.complemento}" placeholder="Complemento. Ex: Loja 2" styleClass="input-xlarge" />
     
-    <p:inputText id="bairro" value="#{usuarioBean.bairro}" placeholder="Bairro" styleClass="input-xlarge" required="true" requiredMessage="O bairro é obrigatório" />    
+    <p:inputText id="bairro" value="#{usuarioBean.endereco.bairro.nomeBairro}" placeholder="Bairro" styleClass="input-xlarge" required="true" requiredMessage="O bairro é obrigatório" />    
     <div>
     <h:message for="bairro" style="color: red;  font-weight: bold;"/>
     </div>    
     
-    <p:inputText id="cidade" value="#{usuarioBean.cidade}" placeholder="Cidade" styleClass="input-xlarge" required="true" requiredMessage="A cidade é obrigatória" />    
+    <p:inputText id="cidade" value="#{usuarioBean.endereco.cidade.nomeCidade}" placeholder="Cidade" styleClass="input-xlarge" required="true" requiredMessage="A cidade é obrigatória" />    
     <div>
     <h:message for="cidade" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="estado" value="#{usuarioBean.estado}" placeholder="Estado" styleClass="input-xlarge" required="true" requiredMessage="O estado é obrigatório" />    
+    <p:inputText id="estado" value="#{usuarioBean.endereco.estado.nomeEstado}" placeholder="Estado" styleClass="input-xlarge" required="true" requiredMessage="O estado é obrigatório" />    
     <div>
     <h:message for="estado" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="pais" value="#{usuarioBean.pais}" placeholder="Pais" styleClass="input-xlarge" required="true" requiredMessage="O pais é obrigatório" />    
+    <p:inputText id="pais" value="#{usuarioBean.endereco.pais.nomePais}" placeholder="Pais" styleClass="input-xlarge" required="true" requiredMessage="O pais é obrigatório" />    
     <div>
     <h:message for="pais" style="color: red;  font-weight: bold;"/>
     </div>

@@ -35,19 +35,19 @@ public class Endereco implements Serializable{
 	private Integer codEndereco;
 	
 	@ManyToOne
-	@JoinColumn(name="codBairro")
+	@JoinColumn(name="Cod_Bairro")
 	private Bairro bairro;
 	
 	@ManyToOne
-	@JoinColumn(name="codCidade")
+	@JoinColumn(name="Cod_Cidade")
 	private Cidade cidade;
 	
 	@ManyToOne
-	@JoinColumn(name="codEstado")
+	@JoinColumn(name="Cod_Estado")
 	private Estado estado;
 	
 	@ManyToOne
-	@JoinColumn(name="codPais")
+	@JoinColumn(name="Cod_Pais")
 	private Pais pais;
 	
 	@Column(name="Cep")

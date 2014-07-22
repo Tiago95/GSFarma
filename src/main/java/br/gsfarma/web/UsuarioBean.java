@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.util.DigestUtils;
 
+import br.gsfarma.endereco.Endereco;
+import br.gsfarma.permissao.Permissao;
 import br.gsfarma.usuario.Usuario;
 import br.gsfarma.usuario.UsuarioRN;
 import br.gsfarma.util.RNException;
@@ -21,6 +23,7 @@ import br.gsfarma.util.RNException;
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private Endereco endereco = new Endereco();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;	
@@ -38,97 +41,19 @@ public class UsuarioBean {
 	private String confirma_senha;
 	private String nome_comprador;
 	
-	public String atribuiPermissao(Usuario usuario, String permissao){
-		
-		this.usuario = usuario;
-		java.util.Set<String> permissoes = this.usuario.getPermissao();
-		
-		if(permissoes.contains(permissao)){
-			
-			permissoes.remove(permissao);
-			
-		}else {
-			
-			permissoes.add(permissao);
-			
-		}
-		
-		return null;
-	}
-	
-	public String novo(){
-		
-		this.destinoSalvar = "usuarioSucesso";
-		this.usuario = new Usuario();
-		this.usuario.setAtivo(true);
-		return "usuario";
-		
-	}
-	
-	public String iniciaCadastro(){
-		
-		return "cadastro";
-		
-	}
-	
 	public String editar(){
 		
 		return "cadastro";
 		
 	}
 	
-	public String salvar(){
+	public String salvar(){	
 		
-			
-	this.usuario.getPermissao().add("ROLE_USUARIO");
-	
-	FacesContext context = FacesContext.getCurrentInstance();
-	
-	String senha = this.usuario.getSenha();
-	String email = this.usuario.getEmail();
-	this.usuario.setEndereco("Endereço: " + this.usuario.getEndereco() + "\n" +"Número: " + this.numero + "\n" +"Complemento: " + this.complemento + "\n" +"Bairro: " + this.bairro + "\n" +"Cidade: " + this.cidade + "\n" +"Estado: " + this.estado + "\n" +"Pais: " + this.pais);
-	this.usuario.getPermissao().add("ROLE_USUARIO");
-	
-	if (senha != null && senha.trim().length() > 0  && !senha.equals(this.confirma_senha)) {
-		FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
-		context.addMessage(null, facesMessage);
-		return null;
-	}
-	
-	if (email != null && email.trim().length() > 0  && !email.equals(this.confirma_email)) {
-		FacesMessage facesMessage = new FacesMessage("O email não foi confirmado corretamente");
-		context.addMessage(null, facesMessage);
-		return null;
-	}
-		
-		if (senha != null && senha.trim().length() == 0) {
-			this.usuario.setSenha(this.senhaCriptografada);
-		} else {
-			String senhaCripto = DigestUtils.md5DigestAsHex(senha.getBytes());
-			this.usuario.setSenha(senhaCripto);
-		}
 		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
-		
-		try{
-			
-			usuarioRN.enviarEmailPosCadastramento(this.usuario, senha);			
+		return usuarioRN.salvar(this.usuario, this.endereco, this.confirma_senha, this.confirma_email);
 	
-		}catch (RNException e){
-			
-			FacesMessage facesMessage = new FacesMessage("Não foi possivel enviar o e-mail de cadastro do usuario. Erro: "
-					+ e.getMessage());
-			context.addMessage(null, facesMessage);
-			
-		}	
-		
-		return "index";
 	}
 	
-		public void setLista(List<Usuario> lista) {
-		this.lista = lista;
-	}
-
 	public String excluir(){
 		
 		
@@ -151,7 +76,7 @@ public class UsuarioBean {
 		
 		
 		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
+		//usuarioRN.salvar(this.usuario);
 		return null;
 		
 		
@@ -200,7 +125,7 @@ public class UsuarioBean {
 		this.usuario.setSenha(senhaCriptoNova);
 		
 		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
+		//usuarioRN.salvar(this.usuario);
 		
 		FacesMessage facesMessage = new FacesMessage("Senha alterada com sucesso");
 		context.addMessage(null, facesMessage);
@@ -212,15 +137,14 @@ public class UsuarioBean {
 		
 		this.usuario = getUsuarioLogado();
 		
-		this.nome_comprador = this.usuario.getNome_contato();
+		this.nome_comprador = this.usuario.getNomeComprador();
 		
 		return this.nome_comprador;
 		
 	}
 	
 	
-	public Usuario getUsuarioLogado() {
-		
+	public Usuario getUsuarioLogado() {		
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext external = context.getExternalContext();
         String login = external.getRemoteUser();
@@ -364,6 +288,14 @@ public class UsuarioBean {
 		this.nome_comprador = nome_comprador;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -380,8 +312,12 @@ public class UsuarioBean {
 				+ ((confirmarSenha == null) ? 0 : confirmarSenha.hashCode());
 		result = prime * result
 				+ ((destinoSalvar == null) ? 0 : destinoSalvar.hashCode());
+		result = prime * result
+				+ ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((lista == null) ? 0 : lista.hashCode());
+		result = prime * result
+				+ ((nome_comprador == null) ? 0 : nome_comprador.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
 		result = prime * result
@@ -442,6 +378,11 @@ public class UsuarioBean {
 				return false;
 		} else if (!destinoSalvar.equals(other.destinoSalvar))
 			return false;
+		if (endereco == null) {
+			if (other.endereco != null)
+				return false;
+		} else if (!endereco.equals(other.endereco))
+			return false;
 		if (estado == null) {
 			if (other.estado != null)
 				return false;
@@ -451,6 +392,11 @@ public class UsuarioBean {
 			if (other.lista != null)
 				return false;
 		} else if (!lista.equals(other.lista))
+			return false;
+		if (nome_comprador == null) {
+			if (other.nome_comprador != null)
+				return false;
+		} else if (!nome_comprador.equals(other.nome_comprador))
 			return false;
 		if (numero == null) {
 			if (other.numero != null)
@@ -488,5 +434,5 @@ public class UsuarioBean {
 		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
-	}	
+	}
 }
