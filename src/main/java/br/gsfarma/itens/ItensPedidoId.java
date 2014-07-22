@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.gsfarma.pedido.Pedido;
@@ -17,10 +18,12 @@ public class ItensPedidoId implements Serializable{
 	 */
 	private static final long serialVersionUID = 583391732189477189L;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name="Cod_Pedido")
 	private Pedido pedido;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name="Cod_Produto")
 	private Produto produto;
 
 	public Pedido getPedido() {

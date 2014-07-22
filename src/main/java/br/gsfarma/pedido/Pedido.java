@@ -2,19 +2,25 @@ package br.gsfarma.pedido;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.gsfarma.itens.ItensPedido;
+import br.gsfarma.permissao.Permissao;
+import br.gsfarma.produto.Produto;
 import br.gsfarma.status.pedido.StatusPedido;
 import br.gsfarma.usuario.Usuario;
 
@@ -40,14 +46,16 @@ public class Pedido implements Serializable {
     @JoinColumn(name="Cod_Usuario")
     private Usuario usuario;
     
+    @ManyToMany
+    @JoinTable(name="Itens_Pedido", joinColumns={@JoinColumn(name="Cod_Pedido")},
+    inverseJoinColumns={@JoinColumn(name="Cod_Produto")})
+    private Collection<Produto> produto;
+    
     @Column(name="Data")
     private Date data;
     
     @Column(name="Valor_Total")
     private BigDecimal valorTotal;
-    
-    @OneToMany(mappedBy="id.pedido")
-    private HashSet<ItensPedido> itensPedido = new HashSet<ItensPedido>();
 
 	public Integer getCodPedido() {
 		return codPedido;
@@ -93,12 +101,12 @@ public class Pedido implements Serializable {
 		return serialVersionUID;
 	}
 
-	public HashSet<ItensPedido> getItensPedido() {
-		return itensPedido;
+	public Collection<Produto> getProduto() {
+		return produto;
 	}
 
-	public void setItensPedido(HashSet<ItensPedido> itensPedido) {
-		this.itensPedido = itensPedido;
+	public void setProduto(Collection<Produto> produto) {
+		this.produto = produto;
 	}
 
 	@Override
@@ -108,8 +116,7 @@ public class Pedido implements Serializable {
 		result = prime * result
 				+ ((codPedido == null) ? 0 : codPedido.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result
-				+ ((itensPedido == null) ? 0 : itensPedido.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		result = prime * result
 				+ ((statusPedido == null) ? 0 : statusPedido.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
@@ -137,10 +144,10 @@ public class Pedido implements Serializable {
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
-		if (itensPedido == null) {
-			if (other.itensPedido != null)
+		if (produto == null) {
+			if (other.produto != null)
 				return false;
-		} else if (!itensPedido.equals(other.itensPedido))
+		} else if (!produto.equals(other.produto))
 			return false;
 		if (statusPedido == null) {
 			if (other.statusPedido != null)
@@ -158,5 +165,5 @@ public class Pedido implements Serializable {
 		} else if (!valorTotal.equals(other.valorTotal))
 			return false;
 		return true;
-	} 
+	}
 }

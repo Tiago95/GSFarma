@@ -2,13 +2,20 @@ package br.gsfarma.produto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,6 +24,7 @@ import br.gsfarma.categoria.Categoria;
 import br.gsfarma.classificacao.Classificacao;
 import br.gsfarma.faixa.etaria.FaixaEtaria;
 import br.gsfarma.itens.ItensPedido;
+import br.gsfarma.pedido.Pedido;
 
 @Entity
 @Table(name="Produto")
@@ -33,19 +41,21 @@ public class Produto implements Serializable {
 	private Integer codProduto;
 	
 	@ManyToOne
-	@JoinColumn(name="codCategoria")
+	@JoinColumn(name="Cod_Categoria")
 	private Categoria categoria;
 	
     @ManyToOne
-    @JoinColumn(name="codFaixaEtaria")
+    @JoinColumn(name="Cod_Faixa_Etaria")
     private FaixaEtaria faixaEtaria;
     
     @ManyToOne
-    @JoinColumn(name="codClassificacao")
+    @JoinColumn(name="Cod_Classificacao")
     private Classificacao classificacao;
     
-    @OneToMany(mappedBy="id.produto")
-    private HashSet<ItensPedido> itensPedido = new HashSet<ItensPedido>();
+    @ManyToMany
+    @JoinTable(name="Itens_Pedido", joinColumns={@JoinColumn(name="Cod_Produto")},
+    inverseJoinColumns={@JoinColumn(name="Cod_Pedido")})
+    private Collection<Pedido> pedido;
     
     @Column(name="Apresentacao")
     private String apresentacao;
@@ -160,14 +170,6 @@ public class Produto implements Serializable {
 		return serialVersionUID;
 	}
 
-	public HashSet<ItensPedido> getItensPedido() {
-		return itensPedido;
-	}
-
-	public void setItensPedido(HashSet<ItensPedido> itensPedido) {
-		this.itensPedido = itensPedido;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -188,8 +190,6 @@ public class Produto implements Serializable {
 				+ ((faixaEtaria == null) ? 0 : faixaEtaria.hashCode());
 		result = prime * result
 				+ ((indicacoes == null) ? 0 : indicacoes.hashCode());
-		result = prime * result
-				+ ((itensPedido == null) ? 0 : itensPedido.hashCode());
 		result = prime * result
 				+ ((precoConsumidor == null) ? 0 : precoConsumidor.hashCode());
 		result = prime * result
@@ -244,11 +244,6 @@ public class Produto implements Serializable {
 			if (other.indicacoes != null)
 				return false;
 		} else if (!indicacoes.equals(other.indicacoes))
-			return false;
-		if (itensPedido == null) {
-			if (other.itensPedido != null)
-				return false;
-		} else if (!itensPedido.equals(other.itensPedido))
 			return false;
 		if (precoConsumidor == null) {
 			if (other.precoConsumidor != null)

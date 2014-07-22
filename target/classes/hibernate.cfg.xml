@@ -22,9 +22,15 @@
 		<mapping class="br.gsfarma.pais.Pais" />
 		<mapping class="br.gsfarma.contato.Contato" />
 		<mapping class="br.gsfarma.status.mensagem.StatusMensagem" />
-		<!-- <mapping class="br.gsfarma.produto.Produto" />
+		<mapping class="br.gsfarma.produto.Produto" />
 		<mapping class="br.gsfarma.pedido.Pedido" />
-		<mapping class="br.gsfarma.itens.ItensPedido" />  -->
+		<mapping class="br.gsfarma.itens.ItensPedido" />
+		<mapping class="br.gsfarma.categoria.Categoria" />
+		<mapping class="br.gsfarma.classificacao.Classificacao" />
+		<mapping class="br.gsfarma.faixa.etaria.FaixaEtaria" />
+		<!-- <mapping class="br.gsfarma.itens.ItensPedidoId" /> -->
+		<mapping class="br.gsfarma.status.pedido.StatusPedido" />
+		
 
 		
 	</session-factory>
