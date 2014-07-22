@@ -1,16 +1,22 @@
 package br.gsfarma.usuario;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.gsfarma.endereco.Endereco;
+import br.gsfarma.permissao.Permissao;
 
 @Entity
 @Table(name = "Usuario")
@@ -30,6 +36,11 @@ public class Usuario implements Serializable {
     @OneToOne
     @PrimaryKeyJoinColumn(name="Cod_Usuario")
     private Endereco endereco;
+    
+    @ManyToMany
+    @JoinTable(name="Usuario_Permissao", joinColumns={@JoinColumn(name="Cod_Usuario")},
+    inverseJoinColumns={@JoinColumn(name="Cod_Permissao")})
+    private Set<Permissao> permissoes = new HashSet<Permissao>();
     
     @Column(name="Razao_Social")
     private String razaoSocial;
@@ -128,6 +139,14 @@ public class Usuario implements Serializable {
 		return serialVersionUID;
 	}
 
+	public Set<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(Set<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -139,6 +158,8 @@ public class Usuario implements Serializable {
 				+ ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result
 				+ ((nomeComprador == null) ? 0 : nomeComprador.hashCode());
+		result = prime * result
+				+ ((permissoes == null) ? 0 : permissoes.hashCode());
 		result = prime * result
 				+ ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
@@ -183,6 +204,11 @@ public class Usuario implements Serializable {
 			if (other.nomeComprador != null)
 				return false;
 		} else if (!nomeComprador.equals(other.nomeComprador))
+			return false;
+		if (permissoes == null) {
+			if (other.permissoes != null)
+				return false;
+		} else if (!permissoes.equals(other.permissoes))
 			return false;
 		if (razaoSocial == null) {
 			if (other.razaoSocial != null)

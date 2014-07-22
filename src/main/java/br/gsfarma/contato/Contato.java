@@ -27,7 +27,7 @@ public class Contato implements Serializable {
 	private Integer codContato;
 	
 	@ManyToOne
-	@JoinColumn(name="codStatusMensagem")
+	@JoinColumn(name="Cod_Status_Mensagem")
 	private StatusMensagem statusMensagem;
 	
 	@Column(name="nome")

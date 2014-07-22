@@ -1,91 +1,112 @@
 package br.gsfarma.itens;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Entity;
 
+import br.gsfarma.pedido.Pedido;
 import br.gsfarma.produto.Produto;
 
-@Embeddable
-public class ItensPedido implements Serializable, Comparable<ItensPedido> {
+@Entity
+@Table(name="Itens_Pedido")
+public class ItensPedido implements Serializable{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7186371343266188598L;
+	private static final long serialVersionUID = -4258450828618917387L;
 	
+	@ManyToOne
+	private Pedido pedido;
 	
-    @ManyToOne
-    @JoinColumn(name="cod_produto")
-    private Produto produto;
+	@ManyToOne
+	private Produto produto;
 	
-	private Integer quantidade;
-	private Float preco_unitario;
-	private Float valor_total;
-	
-	  public ItensPedido(Produto produto) {
-		    this.produto = produto;
-		  }
+	@EmbeddedId
+	private ItensPedidoId id;
 
-		  public ItensPedido(Produto produto, Integer quantidade) {
-		    this.produto = produto;
-		    this.preco_unitario = produto.getPreco_venda();
-		    this.quantidade = quantidade;
-		    calcularTotal();
-		  }
+    @Column(name="Quantidade")
+    private Integer quantidade;
+    
+    @Column(name="Preco_Unitario")
+    private BigDecimal precoUnitario;
+    
+    @Column(name="Valor_Total")
+    private BigDecimal valorTotal;
 
-		  public void calcularTotal() {
-		    valor_total = preco_unitario * quantidade;
-		  }
+	public Pedido getPedido() {
+		return pedido;
+	}
 
-		  public void atualizarQuantidade(Integer novaQuantidade) {
-		    this.quantidade = novaQuantidade;
-		    calcularTotal();
-		  }
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 
-	
 	public Produto getProduto() {
 		return produto;
 	}
+
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
 	public Integer getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	public Float getPreco_unitario() {
-		return preco_unitario;
+
+	public BigDecimal getPrecoUnitario() {
+		return precoUnitario;
 	}
-	public void setPreco_unitario(Float preco_unitario) {
-		this.preco_unitario = preco_unitario;
+
+	public void setPrecoUnitario(BigDecimal precoUnitario) {
+		this.precoUnitario = precoUnitario;
 	}
-	public Float getValor_total() {
-		return valor_total;
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
 	}
-	public void setValor_total(Float valor_total) {
-		this.valor_total = valor_total;
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public ItensPedidoId getId() {
+		return id;
+	}
+
+	public void setId(ItensPedidoId id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
 		result = prime * result
-				+ ((preco_unitario == null) ? 0 : preco_unitario.hashCode());
+				+ ((precoUnitario == null) ? 0 : precoUnitario.hashCode());
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		result = prime * result
 				+ ((quantidade == null) ? 0 : quantidade.hashCode());
 		result = prime * result
-				+ ((valor_total == null) ? 0 : valor_total.hashCode());
+				+ ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,10 +116,20 @@ public class ItensPedido implements Serializable, Comparable<ItensPedido> {
 		if (getClass() != obj.getClass())
 			return false;
 		ItensPedido other = (ItensPedido) obj;
-		if (preco_unitario == null) {
-			if (other.preco_unitario != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!preco_unitario.equals(other.preco_unitario))
+		} else if (!id.equals(other.id))
+			return false;
+		if (pedido == null) {
+			if (other.pedido != null)
+				return false;
+		} else if (!pedido.equals(other.pedido))
+			return false;
+		if (precoUnitario == null) {
+			if (other.precoUnitario != null)
+				return false;
+		} else if (!precoUnitario.equals(other.precoUnitario))
 			return false;
 		if (produto == null) {
 			if (other.produto != null)
@@ -110,20 +141,11 @@ public class ItensPedido implements Serializable, Comparable<ItensPedido> {
 				return false;
 		} else if (!quantidade.equals(other.quantidade))
 			return false;
-		if (valor_total == null) {
-			if (other.valor_total != null)
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
 				return false;
-		} else if (!valor_total.equals(other.valor_total))
+		} else if (!valorTotal.equals(other.valorTotal))
 			return false;
 		return true;
 	}
-	
-	@Override public int compareTo(ItensPedido o) { 
-		
-		return produto.getDescricao().compareTo(o.getProduto().getDescricao()); 
-		
-	}
-
-
-		
 }

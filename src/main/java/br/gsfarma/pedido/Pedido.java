@@ -1,29 +1,25 @@
 package br.gsfarma.pedido;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.gsfarma.itens.ItensPedido;
-import br.gsfarma.produto.Produto;
+import br.gsfarma.status.pedido.StatusPedido;
 import br.gsfarma.usuario.Usuario;
 
 @Entity
-@Table(name="pedido")
+@Table(name="Pedido")
 public class Pedido implements Serializable {
 
 	/**
@@ -33,105 +29,40 @@ public class Pedido implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="cod_pedido")
-	private Integer pedido;
-	
-	private Date data;
-	private String status;
-	private Float valor_total;
-	
-	@ManyToOne
-	@JoinColumn(name="codigo")
-	private Usuario usuario;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "itens_pedido", joinColumns = @JoinColumn(name = "cod_pedido"))
-	private Set<ItensPedido> itens = new HashSet<ItensPedido>();
-	
-	  public List<ItensPedido> getItensOrdenadosEmLista() {
-		    return new ArrayList<ItensPedido>(getItens());
-		  }
+	@Column(name="Cod_Pedido")
+	private Integer codPedido;
 
-		  public void adicionarItem(Produto produto, Integer quantidade) {		
-			  
-			  ItensPedido itemExistente = new ItensPedido(produto);			  
-		      itemExistente = getItem(produto);		      
-		   
-		    if (itemExistente != null) {
-		      //atualizarQuantidade(produto, itemExistente.getQuantidade() + quantidade);
-		    	atualizarQuantidade(produto, quantidade);
-		    }
-		    else {
-		      getItens().add(new ItensPedido(produto, quantidade));
-		      calcularTotal();
-		    }
-			  
-			/*  getItens().add(new ItensPedido(produto, quantidade));
-		      calcularTotal();*/
-		  }
+    @ManyToOne
+    @JoinColumn(name="Cod_Status_Pedido")
+    private StatusPedido statusPedido;
+    
+    @ManyToOne
+    @JoinColumn(name="Cod_Usuario")
+    private Usuario usuario;
+    
+    @Column(name="Data")
+    private Date data;
+    
+    @Column(name="Valor_Total")
+    private BigDecimal valorTotal;
+    
+    @OneToMany(mappedBy="id.pedido")
+    private HashSet<ItensPedido> itensPedido = new HashSet<ItensPedido>();
 
-		  public void removerItem(Produto produto) {
-		    getItens().remove(new ItensPedido(produto));
-		    calcularTotal();
-		  }
-
-		  public ItensPedido getItem(Produto produto) {
-		    ItensPedido itemAProcurar = new ItensPedido(produto);		    
-		    for (ItensPedido item : getItens()) {
-		      if (item.getProduto().getDescricao().equals(itemAProcurar.getProduto().getDescricao())) {
-
-		    	  return item;
-		    	  
-		      }
-		    }
-		    return null;
-		  }
-
-		  public void atualizarQuantidade(Produto produto, Integer novaQuantidade) {
-		    ItensPedido item = getItem(produto);
-		    if (item == null) { throw new IllegalArgumentException(
-		        "Item nao encontrado para produto " + produto); }
-		    item.atualizarQuantidade(novaQuantidade);
-		    calcularTotal();
-		  }
-
-		  public void calcularTotal() {
-		    valor_total = 0F;
-		    for (ItensPedido item : getItens()) {
-		      valor_total += item.getValor_total();
-		    }
-		  }
-
-	public Integer getPedido() {
-		return pedido;
+	public Integer getCodPedido() {
+		return codPedido;
 	}
 
-	public void setPedido(Integer pedido) {
-		this.pedido = pedido;
+	public void setCodPedido(Integer codPedido) {
+		this.codPedido = codPedido;
 	}
 
-	public Date getData() {
-		return data;
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Float getValor_total() {
-		return valor_total;
-	}
-
-	public void setValor_total(Float valor_total) {
-		this.valor_total = valor_total;
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
 	}
 
 	public Usuario getUsuario() {
@@ -142,29 +73,48 @@ public class Pedido implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Set<ItensPedido> getItens() {
-		return itens;
+	public Date getData() {
+		return data;
 	}
 
-	public void setItens(Set<ItensPedido> itens) {
-		this.itens = itens;
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	public HashSet<ItensPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(HashSet<ItensPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((codPedido == null) ? 0 : codPedido.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((itens == null) ? 0 : itens.hashCode());
-		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result
+				+ ((itensPedido == null) ? 0 : itensPedido.hashCode());
+		result = prime * result
+				+ ((statusPedido == null) ? 0 : statusPedido.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result
-				+ ((valor_total == null) ? 0 : valor_total.hashCode());
+				+ ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		return result;
 	}
 
@@ -177,36 +127,36 @@ public class Pedido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
+		if (codPedido == null) {
+			if (other.codPedido != null)
+				return false;
+		} else if (!codPedido.equals(other.codPedido))
+			return false;
 		if (data == null) {
 			if (other.data != null)
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
-		if (itens == null) {
-			if (other.itens != null)
+		if (itensPedido == null) {
+			if (other.itensPedido != null)
 				return false;
-		} else if (!itens.equals(other.itens))
+		} else if (!itensPedido.equals(other.itensPedido))
 			return false;
-		if (pedido == null) {
-			if (other.pedido != null)
+		if (statusPedido == null) {
+			if (other.statusPedido != null)
 				return false;
-		} else if (!pedido.equals(other.pedido))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		} else if (!statusPedido.equals(other.statusPedido))
 			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
 				return false;
 		} else if (!usuario.equals(other.usuario))
 			return false;
-		if (valor_total == null) {
-			if (other.valor_total != null)
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
 				return false;
-		} else if (!valor_total.equals(other.valor_total))
+		} else if (!valorTotal.equals(other.valorTotal))
 			return false;
 		return true;
-	}
+	} 
 }
