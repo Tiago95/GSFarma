@@ -10,7 +10,11 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.util.DigestUtils;
 
+import br.gsfarma.bairro.Bairro;
+import br.gsfarma.cidade.Cidade;
 import br.gsfarma.endereco.Endereco;
+import br.gsfarma.estado.Estado;
+import br.gsfarma.pais.Pais;
 import br.gsfarma.permissao.Permissao;
 import br.gsfarma.usuario.Usuario;
 import br.gsfarma.usuario.UsuarioRN;
@@ -24,6 +28,10 @@ public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
 	private Endereco endereco = new Endereco();
+	private Bairro bairro = new Bairro();
+	private Cidade cidade = new Cidade();
+	private Estado estado = new Estado();
+	private Pais pais = new Pais();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;	
@@ -33,10 +41,10 @@ public class UsuarioBean {
 	private String senhaNova;
 	private String numero;
 	private String complemento;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private String pais;
+	//private String bairro;
+	//private String cidade;
+	//private String estado;
+	//private String pais;
 	private String confirma_email;
 	private String confirma_senha;
 	private String nome_comprador;
@@ -47,10 +55,18 @@ public class UsuarioBean {
 		
 	}
 	
+	public String iniciaCadastro(){
+		
+		return "cadastro";
+		
+	}
+	
 	public String salvar(){	
 		
-		UsuarioRN usuarioRN = new UsuarioRN();
-		return usuarioRN.salvar(this.usuario, this.endereco, this.confirma_senha, this.confirma_email);
+		UsuarioRN usuarioRN = new UsuarioRN();	
+		return usuarioRN.salvar(this.usuario, this.endereco,
+				this.confirma_senha, this.confirma_email,
+				this.bairro, this.cidade, this.estado, this.pais);
 	
 	}
 	
@@ -168,6 +184,46 @@ public class UsuarioBean {
 		this.usuario = usuario;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
 	public String getConfirmarSenha() {
 		return confirmarSenha;
 	}
@@ -232,38 +288,6 @@ public class UsuarioBean {
 		this.complemento = complemento;
 	}
 
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
 	public String getConfirma_email() {
 		return confirma_email;
 	}
@@ -278,7 +302,7 @@ public class UsuarioBean {
 
 	public void setConfirma_senha(String confirma_senha) {
 		this.confirma_senha = confirma_senha;
-	}	
+	}
 
 	public String getNome_comprador() {
 		return nome_comprador;
@@ -288,12 +312,8 @@ public class UsuarioBean {
 		this.nome_comprador = nome_comprador;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setLista(List<Usuario> lista) {
+		this.lista = lista;
 	}
 
 	@Override
@@ -435,4 +455,10 @@ public class UsuarioBean {
 			return false;
 		return true;
 	}
+
+
+	
+	
+
+
 }

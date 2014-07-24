@@ -15,7 +15,7 @@
 
 		<mapping class="br.gsfarma.usuario.Usuario" />
 		<mapping class="br.gsfarma.permissao.Permissao" />
-		<mapping class="br.gsfarma.endereco.Endereco" />
+		<mapping class="br.gsfarma.endereco.Endereco" /> 
 		<mapping class="br.gsfarma.bairro.Bairro" />
 		<mapping class="br.gsfarma.cidade.Cidade" />
 		<mapping class="br.gsfarma.estado.Estado" />
@@ -28,7 +28,7 @@
 		<mapping class="br.gsfarma.categoria.Categoria" />
 		<mapping class="br.gsfarma.classificacao.Classificacao" />
 		<mapping class="br.gsfarma.faixa.etaria.FaixaEtaria" />
-		<!-- <mapping class="br.gsfarma.itens.ItensPedidoId" /> -->
+		<mapping class="br.gsfarma.itens.ItensPedidoId" />
 		<mapping class="br.gsfarma.status.pedido.StatusPedido" />
 		
 

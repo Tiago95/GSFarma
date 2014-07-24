@@ -30,7 +30,7 @@ public class Endereco implements Serializable{
 	@Id
 	@GeneratedValue(generator="FK_FK_ENDERECO_USUARIO")
 	@GenericGenerator(name="FK_FK_ENDERECO_USUARIO", strategy="foreign",
-	parameters=@Parameter(name="property", value="Cod_Usuario"))
+	parameters=@Parameter(name="property", value="codUsuario"))
 	@Column(name="Cod_Usuario")
 	private Integer codEndereco;
 	

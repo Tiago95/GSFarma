@@ -86,22 +86,22 @@
     
     <p:inputText id="complemento" value="#{usuarioBean.endereco.complemento}" placeholder="Complemento. Ex: Loja 2" styleClass="input-xlarge" />
     
-    <p:inputText id="bairro" value="#{usuarioBean.endereco.bairro.nomeBairro}" placeholder="Bairro" styleClass="input-xlarge" required="true" requiredMessage="O bairro é obrigatório" />    
+    <p:inputText id="bairro" value="#{usuarioBean.bairro.nomeBairro}" placeholder="Bairro" styleClass="input-xlarge" required="true" requiredMessage="O bairro é obrigatório" />    
     <div>
     <h:message for="bairro" style="color: red;  font-weight: bold;"/>
     </div>    
     
-    <p:inputText id="cidade" value="#{usuarioBean.endereco.cidade.nomeCidade}" placeholder="Cidade" styleClass="input-xlarge" required="true" requiredMessage="A cidade é obrigatória" />    
+    <p:inputText id="cidade" value="#{usuarioBean.cidade.nomeCidade}" placeholder="Cidade" styleClass="input-xlarge" required="true" requiredMessage="A cidade é obrigatória" />    
     <div>
     <h:message for="cidade" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="estado" value="#{usuarioBean.endereco.estado.nomeEstado}" placeholder="Estado" styleClass="input-xlarge" required="true" requiredMessage="O estado é obrigatório" />    
+    <p:inputText id="estado" value="#{usuarioBean.estado.nomeEstado}" placeholder="Estado" styleClass="input-xlarge" required="true" requiredMessage="O estado é obrigatório" />    
     <div>
     <h:message for="estado" style="color: red;  font-weight: bold;"/>
     </div>
     
-    <p:inputText id="pais" value="#{usuarioBean.endereco.pais.nomePais}" placeholder="Pais" styleClass="input-xlarge" required="true" requiredMessage="O pais é obrigatório" />    
+    <p:inputText id="pais" value="#{usuarioBean.pais.nomePais}" placeholder="Pais" styleClass="input-xlarge" required="true" requiredMessage="O pais é obrigatório" />    
     <div>
     <h:message for="pais" style="color: red;  font-weight: bold;"/>
     </div>

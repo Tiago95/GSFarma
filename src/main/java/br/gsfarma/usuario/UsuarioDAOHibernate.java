@@ -20,7 +20,7 @@ public class UsuarioDAOHibernate implements UsuarioDAO {
 	@Override
 	public void salvar(Usuario usuario) {
 		
-		this.session.saveOrUpdate(usuario);
+		this.session.save(usuario);
 
 	}
 

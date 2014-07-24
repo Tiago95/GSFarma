@@ -7,9 +7,15 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.util.DigestUtils;
 
+import br.gsfarma.bairro.Bairro;
+import br.gsfarma.bairro.BairroRN;
+import br.gsfarma.cidade.Cidade;
 import br.gsfarma.endereco.Endereco;
 import br.gsfarma.endereco.EnderecoRN;
+import br.gsfarma.estado.Estado;
+import br.gsfarma.pais.Pais;
 import br.gsfarma.permissao.Permissao;
+import br.gsfarma.permissao.PermissaoRN;
 import br.gsfarma.util.DAOFactory;
 import br.gsfarma.util.EmailUtil;
 import br.gsfarma.util.MensagemUtil;
@@ -22,6 +28,8 @@ public class UsuarioRN {
 	private UsuarioDAO usuarioDAO;
 	
 	private Usuario usuario;
+	
+	private Endereco endereco;
 	
 	public UsuarioRN(){
 		
@@ -40,10 +48,13 @@ public class UsuarioRN {
 		
 	}
 	
-	public String salvar(Usuario usuario, Endereco endereco, String confirmaSenha, String confirmaEmail){
+	public String salvar(Usuario usuario, Endereco endereco,
+						String confirmaSenha, String confirmaEmail,
+						Bairro bairro, Cidade cidade, Estado estado, Pais pais){
 	
 		this.usuario = usuario;
-		atribuiPermissao();
+		this.usuario.getPermissoes().add(atribuiPermissaoUsuario());
+		this.usuario.setAtivo(true);
 		boolean senhaValida = verificaSenha(confirmaSenha);
 		
 		if(senhaValida == false){
@@ -60,8 +71,9 @@ public class UsuarioRN {
 		}
 		
 		criptografarSenha();
+		atribuiEndereco(endereco,bairro,cidade,estado,pais);
 		this.usuarioDAO.salvar(this.usuario);
-		salvarEndereco(endereco);
+		//salvarEndereco(endereco);
 		
 		try{
 			enviarEmailPosCadastramento(this.usuario, confirmaSenha);
@@ -76,13 +88,20 @@ public class UsuarioRN {
 		return "index";
 	}
 	
-	public void atribuiPermissao(){
+    public Permissao atribuiPermissaoUsuario(){
 		
-		Permissao permissaoUsuario = new Permissao();
-		permissaoUsuario.setTipoPermissao("ROLE_USUARIO");
+    	PermissaoRN permissaoRN = new PermissaoRN();
+		List<Permissao> permissao = permissaoRN.listar();
 		
-		this.usuario.getPermissoes().add(permissaoUsuario);
+		for (Permissao permissaoAtual : permissao) {
+			if(!permissaoAtual.getTipoPermissao().equals("ROLE_USUARIO")){
+				permissaoRN.salvar(permissaoAtual);
+				return permissaoAtual;
+			}
+			
+		}
 		
+		return null;
 	}
 	
 	public boolean verificaSenha(String senha){
@@ -120,10 +139,21 @@ public class UsuarioRN {
 		
 	}
 	
-	public void salvarEndereco(Endereco endereco){
+/*	public void salvarEndereco(Endereco endereco){
 		
 		EnderecoRN enderecoRN = new EnderecoRN();
 		enderecoRN.salvar(endereco);
+		
+	}*/
+	
+	public void atribuiEndereco(Endereco endereco, Bairro bairro, Cidade cidade,
+			Estado estado, Pais pais){
+	
+		this.endereco = new Endereco();		
+		
+		BairroRN bairroRN = new BairroRN();
+		List<Bairro> bairros = bairroRN.listar();
+		
 		
 	}
 	

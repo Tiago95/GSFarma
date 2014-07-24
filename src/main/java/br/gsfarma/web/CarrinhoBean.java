@@ -38,18 +38,18 @@ public class CarrinhoBean implements Serializable {
 		  
 		  FacesContext context = FacesContext.getCurrentInstance();
 		  
-		  if(this.produto.getQuantidade() == null){
+/*		  if(this.produto.getQuantidade() == null){
 			  
 			  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro ao Adicionar Produto", "Favor inserir a quantidade desejada"));  		  
 			  
 			  
 		  }else{
 			  
-			  pedidoCarrinho.adicionarItem(this.produto, this.produto.getQuantidade());
+//			  pedidoCarrinho.adicionarItem(this.produto, this.produto.getQuantidade());
 			  
-			  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Produto adicionado ao carrinho", "Foram inseridas "+this.produto.getQuantidade()+" caixas de "+this.produto.getDescricao()+" ao seu pedido" ));
+			  //context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Produto adicionado ao carrinho", "Foram inseridas "+this.produto.getQuantidade()+" caixas de "+this.produto.getDescricao()+" ao seu pedido" ));
 			  
-		  }
+		  }*/
 		  
 		   		   
 		  
@@ -58,11 +58,11 @@ public class CarrinhoBean implements Serializable {
 	  
 
 		  public void removerItem() {
-		    pedidoCarrinho.removerItem(produtoRemover);
+//		    pedidoCarrinho.removerItem(produtoRemover);
 		  }
 
 		  public void atualizarQuantidadeItem(Produto produto, Integer novaQuantidade) {
-		    pedidoCarrinho.atualizarQuantidade(produto, novaQuantidade);
+//		    pedidoCarrinho.atualizarQuantidade(produto, novaQuantidade);
 		  }
 
 		  public String fecharPedidoUsuarioExistente() {
@@ -76,8 +76,8 @@ public class CarrinhoBean implements Serializable {
 		  }
 
 		  public void recalcularTotal(ItensPedido itemPedido) {
-		    itemPedido.calcularTotal();
-		    pedidoCarrinho.calcularTotal();
+//		    itemPedido.calcularTotal();
+//		    pedidoCarrinho.calcularTotal();
 		  }
 
 		public Pedido getPedidoCarrinho() {

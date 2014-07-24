@@ -19,7 +19,7 @@ import br.gsfarma.endereco.Endereco;
 import br.gsfarma.permissao.Permissao;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name="Usuario")
 public class Usuario implements Serializable {
 
 	
@@ -28,10 +28,10 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 7661346846206386994L;
 
-	@Id
-	@GeneratedValue
-	@Column(name="Cod_Usuario")
-	private Integer codUsuario;
+     @Id
+     @GeneratedValue
+     @Column(name="COD_USUARIO")
+     private Integer codUsuario;
 	
     @OneToOne
     @PrimaryKeyJoinColumn(name="Cod_Usuario")
@@ -83,6 +83,22 @@ public class Usuario implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Set<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(Set<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getRazaoSocial() {
@@ -141,18 +157,6 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public Set<Permissao> getPermissoes() {
-		return permissoes;
-	}
-
-	public void setPermissoes(Set<Permissao> permissoes) {
-		this.permissoes = permissoes;
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -161,12 +165,8 @@ public class Usuario implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
