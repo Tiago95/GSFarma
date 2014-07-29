@@ -5,8 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/facelets/tags"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:stella="http://stella.caelum.com.br/faces2">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	
 <head>
@@ -41,10 +40,12 @@
                             
 <p class="sign_title">Para ser cliente, é necessário preencher corretamente o formulário abaixo com os respectivos dados cadastrais</p>
 
-    <h:messages style="color: red;" />
+   <h:messages style="color: red;" />
     
     <p:inputMask id="cnpj" value="#{usuarioBean.usuario.cnpj}" placeholder="CNPJ" styleClass="input-xlarge" required="true" mask="99.999.999/9999-99" requiredMessage="O CNPJ é obrigatório">
-    <stella:validateCNPJ formatted="true" />
+    <!-- <stella:validateCNPJ formatted="true" /> -->
+    <f:converter converterId="conversorCNPJ" />
+    <f:validator validatorId="validarCNPJ"/>
     </p:inputMask>
     <div>
     <h:message for="cnpj" style="color: red;  font-weight: bold;"/>

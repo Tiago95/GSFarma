@@ -19,10 +19,10 @@
 		<authentication-provider>
 		<password-encoder hash="md5" />
 			<jdbc-user-service data-source-ref="gsfarmaDataSource"
-				authorities-by-username-query="SELECT u.email, p.permissao 
-											 FROM usuario u, usuario_permissao p 
-											WHERE u.codigo = p.usuario 
-											  AND u.email = ?"
+				authorities-by-username-query="select u.email, p.tipo_permissao from usuario as u 
+												inner join usuario_permissao d on u.COD_USUARIO = d.COD_USUARIO
+												inner join permissao p on p.COD_PERMISSAO = d.COD_PERMISSAO 
+												WHERE u.email = ?"
 				users-by-username-query="SELECT email, senha, ativo 
 									   FROM usuario 
 									  WHERE email = ?" />

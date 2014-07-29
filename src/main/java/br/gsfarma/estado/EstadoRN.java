@@ -1,5 +1,6 @@
 package br.gsfarma.estado;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.gsfarma.util.DAOFactory;
@@ -12,9 +13,22 @@ public class EstadoRN {
 		this.estadoDAO = DAOFactory.criarEstadoDAO();
 	}
 	
-	public void salvar(Estado estado){
+	public Estado salvar(Estado estado){
 		
-		this.estadoDAO.salvar(estado);
+		List<Estado> listaEstados = new ArrayList<Estado>();
+		listaEstados = listar();
+		
+		if(listaEstados.contains(estado)){
+			for (Estado estado2 : listaEstados) {
+				if(estado2.equals(estado)){
+					return estado2;
+				}
+			}
+		}else{
+			this.estadoDAO.salvar(estado);
+		}	
+		
+		return estado;
 		
 	}
 	

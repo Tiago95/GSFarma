@@ -2,6 +2,7 @@ package br.gsfarma.bairro;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class BairroDAOHibernate implements BairroDAO{
@@ -19,6 +20,7 @@ public class BairroDAOHibernate implements BairroDAO{
 
 		this.session.save(bairro);
 		
+		
 	}
 
 	@Override
@@ -30,12 +32,17 @@ public class BairroDAOHibernate implements BairroDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Bairro> listar() {
+	public Bairro listar(Bairro bairro) {
 		
-		return this.session.createCriteria(Bairro.class).list();
+		String hql = "select b from Bairro b where b.nomeBairro = :bairro";
+		Query consulta = this.session.createQuery(hql);
+		consulta.setString("bairro", bairro.getNomeBairro());
+		if(consulta.list().isEmpty()){
+			return bairro;
+		}else{
+			return (Bairro) consulta.uniqueResult();
+		}		
 		
-	}
-	
-	
+	}	
 
 }

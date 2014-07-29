@@ -10,10 +10,13 @@ import org.springframework.util.DigestUtils;
 import br.gsfarma.bairro.Bairro;
 import br.gsfarma.bairro.BairroRN;
 import br.gsfarma.cidade.Cidade;
+import br.gsfarma.cidade.CidadeRN;
 import br.gsfarma.endereco.Endereco;
 import br.gsfarma.endereco.EnderecoRN;
 import br.gsfarma.estado.Estado;
+import br.gsfarma.estado.EstadoRN;
 import br.gsfarma.pais.Pais;
+import br.gsfarma.pais.PaisRN;
 import br.gsfarma.permissao.Permissao;
 import br.gsfarma.permissao.PermissaoRN;
 import br.gsfarma.util.DAOFactory;
@@ -72,8 +75,10 @@ public class UsuarioRN {
 		
 		criptografarSenha();
 		atribuiEndereco(endereco,bairro,cidade,estado,pais);
+		this.usuario.setEndereco(this.endereco);
 		this.usuarioDAO.salvar(this.usuario);
-		//salvarEndereco(endereco);
+		this.endereco.setUsuario(this.usuario);
+		salvarEndereco();
 		
 		try{
 			enviarEmailPosCadastramento(this.usuario, confirmaSenha);
@@ -82,8 +87,7 @@ public class UsuarioRN {
 			FacesMessage facesMessage = new FacesMessage("Não foi possivel enviar o e-mail de cadastro do usuario. Erro: "
 					+ e.getMessage());
 			context.addMessage(null, facesMessage);
-		}
-		
+		}		
 		
 		return "index";
 	}
@@ -94,8 +98,7 @@ public class UsuarioRN {
 		List<Permissao> permissao = permissaoRN.listar();
 		
 		for (Permissao permissaoAtual : permissao) {
-			if(!permissaoAtual.getTipoPermissao().equals("ROLE_USUARIO")){
-				permissaoRN.salvar(permissaoAtual);
+			if(permissaoAtual.getTipoPermissao().equals("ROLE_USUARIO")){
 				return permissaoAtual;
 			}
 			
@@ -139,22 +142,34 @@ public class UsuarioRN {
 		
 	}
 	
-/*	public void salvarEndereco(Endereco endereco){
+   public void salvarEndereco(){
 		
 		EnderecoRN enderecoRN = new EnderecoRN();
-		enderecoRN.salvar(endereco);
+		enderecoRN.salvar(this.endereco);
 		
-	}*/
+	}
 	
 	public void atribuiEndereco(Endereco endereco, Bairro bairro, Cidade cidade,
 			Estado estado, Pais pais){
-	
-		this.endereco = new Endereco();		
 		
 		BairroRN bairroRN = new BairroRN();
-		List<Bairro> bairros = bairroRN.listar();
+		bairro = bairroRN.salvar(bairro);
 		
+		CidadeRN cidadeRN = new CidadeRN();
+		cidade = cidadeRN.salvar(cidade);
 		
+		EstadoRN estadoRN = new EstadoRN();
+		estado = estadoRN.salvar(estado);
+		
+		PaisRN paisRN = new PaisRN();
+		pais = paisRN.salvar(pais);
+		
+		this.endereco = endereco;
+		this.endereco.setBairro(bairro);
+		this.endereco.setCidade(cidade);
+		this.endereco.setEstado(estado);
+		this.endereco.setPais(pais);
+				
 	}
 	
 	public void excluir(Usuario usuario){

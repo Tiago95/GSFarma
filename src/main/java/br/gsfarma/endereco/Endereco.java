@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import br.gsfarma.bairro.Bairro;
 import br.gsfarma.cidade.Cidade;
 import br.gsfarma.estado.Estado;
 import br.gsfarma.pais.Pais;
+import br.gsfarma.usuario.Usuario;
 
 @Entity
 @Table(name="Endereco")
@@ -30,7 +32,7 @@ public class Endereco implements Serializable{
 	@Id
 	@GeneratedValue(generator="FK_FK_ENDERECO_USUARIO")
 	@GenericGenerator(name="FK_FK_ENDERECO_USUARIO", strategy="foreign",
-	parameters=@Parameter(name="property", value="codUsuario"))
+	parameters=@Parameter(name="property", value="usuario"))
 	@Column(name="Cod_Usuario")
 	private Integer codEndereco;
 	
@@ -49,6 +51,9 @@ public class Endereco implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="Cod_Pais")
 	private Pais pais;
+	
+	@OneToOne(mappedBy="endereco")
+	private Usuario usuario;
 	
 	@Column(name="Cep")
 	private String cep;
@@ -100,6 +105,14 @@ public class Endereco implements Serializable{
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getCep() {
@@ -154,6 +167,7 @@ public class Endereco implements Serializable{
 				+ ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
@@ -210,6 +224,11 @@ public class Endereco implements Serializable{
 			if (other.pais != null)
 				return false;
 		} else if (!pais.equals(other.pais))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
 	}

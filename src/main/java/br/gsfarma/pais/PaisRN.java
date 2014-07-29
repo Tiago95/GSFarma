@@ -1,5 +1,6 @@
 package br.gsfarma.pais;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.gsfarma.util.DAOFactory;
@@ -12,9 +13,22 @@ public class PaisRN {
 		this.paisDAO = DAOFactory.criarPaisDAO();
 	}
 	
-	public void salvar(Pais pais){
+	public Pais salvar(Pais pais){
 		
-		this.paisDAO.salvar(pais);
+		List<Pais> listaPais = new ArrayList<Pais>();
+		listaPais = listar();
+		
+		if(listaPais.contains(pais)){
+			for (Pais pais2 : listaPais) {
+				if(pais2.equals(pais)){
+					return pais2;
+				}
+			}
+		}else{
+			this.paisDAO.salvar(pais);
+		}	
+		
+		return pais;
 		
 	}
 	

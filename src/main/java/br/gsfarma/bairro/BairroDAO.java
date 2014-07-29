@@ -8,5 +8,5 @@ public interface BairroDAO {
 	
 	public void excluir(Bairro bairro);
 
-	public List<Bairro> listar();
+	public Bairro listar(Bairro bairro);
 }

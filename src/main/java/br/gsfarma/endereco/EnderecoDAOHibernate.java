@@ -15,7 +15,7 @@ public class EnderecoDAOHibernate implements EnderecoDAO{
 	@Override
 	public void salvar(Endereco endereco) {
 		
-		this.session.saveOrUpdate(endereco);
+		this.session.save(endereco);
 
 	}
 

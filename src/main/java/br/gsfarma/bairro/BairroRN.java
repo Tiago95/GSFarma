@@ -1,6 +1,9 @@
 package br.gsfarma.bairro;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.org.apache.regexp.internal.recompile;
 
 import br.gsfarma.util.DAOFactory;
 
@@ -14,9 +17,16 @@ public class BairroRN {
 		
 	}
 	
-	public void salvar(Bairro bairro){
+	public Bairro salvar(Bairro bairro){
 		
-		this.bairroDAO.salvar(bairro);
+		bairro = listar(bairro);
+		
+		if(bairro.getCodBairro() == null){
+			this.bairroDAO.salvar(bairro);
+			return bairro;
+		}else{
+			return bairro;
+		}
 		
 	}
 	
@@ -26,9 +36,9 @@ public class BairroRN {
 		
 	}
 	
-	public List<Bairro> listar(){
+	public Bairro listar(Bairro bairro){
 		
-		return this.bairroDAO.listar();
+		return this.bairroDAO.listar(bairro);
 		
 	}
 
