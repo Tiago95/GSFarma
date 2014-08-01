@@ -6,19 +6,63 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/facelets/tags"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-<head>
+
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-</head>
+<style type="text/css">
+    .ui-fileupload-choose {
+        display: none!important;
+    }
+</style>
+</h:head>
 
 <ui:composition template="/templates/interna.xhtml">
 
-<ui:define name="corpo">
+	<ui:define name="corpo">
 
-<body>
+		<body>
 
+			<div id="main">
+				<div class="container">
+					<section id="register">
+					<div class="hgroup">
+						<h1>Cadastro de Produtos</h1>
+						<ul class="breadcrumb pull-right">
+							<li><a href="../publico/index.jsf">Home</a> <span
+								class="divider">/</span></li>
+							<li class="active">Cadastro de Produtos</li>
+						</ul>
+					</div>
+					<div class="row">
+						<div class="signup span6">
 
-</body>
-</ui:define>
+							<h:form prependId="false" enctype="multipart/form-data">
+								<fieldset>
+									<div class="social_sign">
+										<a><i class="icon icon-plus-sign"></i></a>
+										<h3>Cadastro de Produtos</h3>
+									</div>
+
+									<p class="sign_title">Para cadastrar um novo produto, é
+										necessário preencher corretamente o formulário abaixo com os
+										respectivos dados cadastrais</p>
+										
+										<h:messages style="color: red;" />
+										
+										
+										    <p:fileUpload id="fileupload" value="#{produtoBean.arquivo}" label="Procurar" mode="advanced" dragDropSupport="true"
+                        									    allowTypes="/(\.|\/)(gif|jpe?g|png)$/" disabled="true"/>
+                        									    <h:commandButton action="#{produtoBean.salvar}" value="Finalizar Cadastro" styleClass="btn btn-success btn-large" />
+                        									   
+								</fieldset>
+							</h:form>
+						</div>
+					</div>
+
+					</section>
+				</div>
+			</div>
+		</body>
+	</ui:define>
 </ui:composition>
 </html>
