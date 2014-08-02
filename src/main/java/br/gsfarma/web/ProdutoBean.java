@@ -3,6 +3,7 @@ package br.gsfarma.web;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -11,6 +12,12 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import br.gsfarma.categoria.Categoria;
+import br.gsfarma.categoria.CategoriaRN;
+import br.gsfarma.classificacao.Classificacao;
+import br.gsfarma.classificacao.ClassificacaoRN;
+import br.gsfarma.faixa.etaria.FaixaEtaria;
+import br.gsfarma.faixa.etaria.FaixaEtariaRN;
 import br.gsfarma.produto.Produto;
 import br.gsfarma.produto.ProdutoRN;
 
@@ -24,8 +31,10 @@ public class ProdutoBean implements Serializable{
 	private static final long serialVersionUID = 115612075060736726L;
 	private Produto produto = new Produto();
 	private List<Produto> lista;
+	private List<Categoria> listaCategoria;
+	private List<FaixaEtaria> listaFaixaEtaria;
+	private List<Classificacao> listaClassificacao;
 	private UploadedFile arquivo;
-	
 	
 	public List<Produto> getLista(){
 		
@@ -84,6 +93,30 @@ public class ProdutoBean implements Serializable{
 
 	public void setArquivo(UploadedFile arquivo) {
 		this.arquivo = arquivo;
+	}
+	
+	public List<Categoria> getlistaCategoria() {		
+		if(listaCategoria == null){
+			CategoriaRN categoriaRN = new CategoriaRN();
+			listaCategoria = categoriaRN.listar();
+		}		
+		return listaCategoria;
+	}
+	
+	public List<FaixaEtaria> getListaFaixaEtaria() {
+		if(listaFaixaEtaria == null){
+			FaixaEtariaRN faixaEtariaRN = new FaixaEtariaRN();
+			listaFaixaEtaria = faixaEtariaRN.listar();
+		}
+		return listaFaixaEtaria;
+	}
+	
+	public List<Classificacao> getListaClassificacao() {
+		if(listaClassificacao == null){
+			ClassificacaoRN classificacaoRN = new ClassificacaoRN();
+			listaClassificacao = classificacaoRN.listar();
+		}
+		return listaClassificacao;
 	}
 
 	@Override

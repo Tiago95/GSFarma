@@ -2,14 +2,20 @@ package br.gsfarma.util;
 
 import br.gsfarma.bairro.BairroDAO;
 import br.gsfarma.bairro.BairroDAOHibernate;
+import br.gsfarma.categoria.CategoriaDAO;
+import br.gsfarma.categoria.CategoriaDAOHibernate;
 import br.gsfarma.cidade.CidadeDAO;
 import br.gsfarma.cidade.CidadeDAOHibernate;
+import br.gsfarma.classificacao.ClassificacaoDAO;
+import br.gsfarma.classificacao.ClassificacaoDAOHibernate;
 import br.gsfarma.contato.ContatoDAO;
 import br.gsfarma.contato.ContatoDAOHibernate;
 import br.gsfarma.endereco.EnderecoDAO;
 import br.gsfarma.endereco.EnderecoDAOHibernate;
 import br.gsfarma.estado.EstadoDAO;
 import br.gsfarma.estado.EstadoDAOHibernate;
+import br.gsfarma.faixa.etaria.FaixaEtariaDAO;
+import br.gsfarma.faixa.etaria.FaixaEtariaDAOHibernate;
 import br.gsfarma.pais.PaisDAO;
 import br.gsfarma.pais.PaisDAOHibernate;
 import br.gsfarma.permissao.PermissaoDAO;
@@ -93,4 +99,21 @@ public class DAOFactory {
 		
 	}
 	
+	public static CategoriaDAO criarCategoriaDAO(){
+		CategoriaDAOHibernate categoriaDAO = new CategoriaDAOHibernate();
+		categoriaDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return categoriaDAO;
+	}
+	
+	public static FaixaEtariaDAO criarFaixaEtariaDAO(){
+		FaixaEtariaDAOHibernate faixaDAO = new FaixaEtariaDAOHibernate();
+		faixaDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return faixaDAO;
+	}
+	
+	public static ClassificacaoDAO criarClassificacaoDAO(){
+		ClassificacaoDAOHibernate classificacaoDAO = new ClassificacaoDAOHibernate();
+		classificacaoDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return classificacaoDAO;
+	}	
 }

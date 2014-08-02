@@ -8,12 +8,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<style type="text/css">
-    .ui-fileupload-choose {
-        display: none!important;
-    }
-</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </h:head>
 
 <ui:composition template="/templates/interna.xhtml">
@@ -46,14 +41,79 @@
 									<p class="sign_title">Para cadastrar um novo produto, é
 										necessário preencher corretamente o formulário abaixo com os
 										respectivos dados cadastrais</p>
-										
-										<h:messages style="color: red;" />
-										
-										
-										    <p:fileUpload id="fileupload" value="#{produtoBean.arquivo}" label="Procurar" mode="advanced" dragDropSupport="true"
-                        									    allowTypes="/(\.|\/)(gif|jpe?g|png)$/" disabled="true"/>
-                        									    <h:commandButton action="#{produtoBean.salvar}" value="Finalizar Cadastro" styleClass="btn btn-success btn-large" />
-                        									   
+
+									<h:messages style="color: red;" />
+
+									<h:selectOneMenu id="comboCategoria"
+										value="#{produtoBean.produto.categoria}"
+										styleClass="input-xlarge">
+										<f:selectItem itemLabel="Selecione uma Categoria" itemValue="" />
+										<f:selectItems value="#{produtoBean.listaCategoria}"
+											var="categoria" itemLabel="#{categoria.descricao}"
+											itemValue="#{categoria.codCategoria}" />
+									</h:selectOneMenu>
+
+									<h:selectOneMenu id="comboFaixaEtaria"
+										value="#{produtoBean.produto.faixaEtaria}"
+										styleClass="input-xlarge">
+										<f:selectItem itemLabel="Selecione uma Faixa Etária"
+											itemValue="" />
+											<f:selectItems value="#{produtoBean.listaFaixaEtaria}"
+											var="faixaEtaria" itemLabel="#{faixaEtaria.descricao}"
+											itemValue="#{faixaEtaria.codFaixaEtaria}" />
+									</h:selectOneMenu>
+
+									<h:selectOneMenu id="comboClassificacao"
+										value="#{produtoBean.produto.classificacao}"
+										styleClass="input-xlarge">
+										<f:selectItem itemLabel="Selecione uma Classificação"
+											itemValue="" />
+										<f:selectItems value="#{produtoBean.listaClassificacao}"
+										var="classificacao" itemLabel="#{classificacao.descricao}"
+										itemValue="#{classificacao.codClassificacao}" />
+									</h:selectOneMenu>
+									<br />
+									<p:inputTextarea rows="3" style="width:262px;"
+										id="apresentacao" value="#{produtoBean.produto.apresentacao}"
+										required="true" placeholder="Digite a Apresentação do Produto"
+										requiredMessage="A mensagem é obrigatória" />
+									<br /> <br />
+									<p:inputTextarea rows="3" style="width:262px;" id="referencia"
+										value="#{produtoBean.produto.referencia}" required="true"
+										styleClass="input-xlarge"
+										placeholder="Digite a Referência do Produto"
+										requiredMessage="A mensagem é obrigatória" />
+									<br /> <br />
+									<p:inputTextarea rows="3" style="width:262px;"
+										id="classe_terapeutica"
+										value="#{produtoBean.produto.classeTerapeutica}"
+										required="true" styleClass="input-xlarge"
+										placeholder="Digite a Classe Terapêutica do Produto"
+										requiredMessage="A mensagem é obrigatória" />
+									<br /> <br />
+									<p:inputTextarea rows="3" style="width:262px;" id="indicacoes"
+										value="#{produtoBean.produto.indicacoes}" required="true"
+										styleClass="input-xlarge"
+										placeholder="Digite a Indicação do Produto"
+										requiredMessage="A mensagem é obrigatória" />
+									<br /> <br />
+									<p:inputText placeholder="Preço de Fábrica"
+										styleClass="input-xlarge"
+										value="#{produtoBean.produto.precoFabrica}" />
+									<p:inputText placeholder="Preço do Consumidor"
+										styleClass="input-xlarge"
+										value="#{produtoBean.produto.precoConsumidor}" />
+									<p:inputText placeholder="Preço de Venda"
+										styleClass="input-xlarge"
+										value="#{produtoBean.produto.precoVenda}" />
+
+									<!-- <p:fileUpload id="fileupload" value="#{produtoBean.arquivo}"
+										label="Procurar" mode="advanced" dragDropSupport="true"
+										allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> -->
+									<h:commandButton action="#{produtoBean.salvar}"
+										value="Finalizar Cadastro"
+										styleClass="btn btn-success btn-large" />
+
 								</fieldset>
 							</h:form>
 						</div>
